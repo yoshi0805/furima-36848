@@ -1,24 +1,49 @@
-# README
+usersテーブル
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+|Column             |Type   | Options                | 
+|                   |       |                        |
+|nickname           |string |null:false              |
+|email              |string |null:false, unique:true |
+|encrypted_password |string |null:false              |
+|first_name         |string |null:false              |
+|last_name          |string |null:false              |
+|birth_year         |string |null:false              |
+|birth_month        |string |null:false              |
+|birth_day          |string |null:false              |
 
-Things you may want to cover:
+has_many :items
+has_many :orders
 
-* Ruby version
 
-* System dependencies
+itemsテーブル
 
-* Configuration
+|Column           |Type       | Options                      | 
+|                 |           |                              |
+|item_name        |string     |null:false                    |
+|detail           |text       |null:false                    |
+|category         |string     |null:false                    |
+|status           |string     |null:false                    |
+|shipping_burden  |string     |null:false                    |
+|shipment_source  |string     |null:false                    |
+|price            |string     |null:false                    |
+|user_id          |references |null:false, foreign_key: true |
 
-* Database creation
+belongs_to :users
+has_one :orders
 
-* Database initialization
 
-* How to run the test suite
+ordersテーブル
 
-* Services (job queues, cache servers, search engines, etc.)
+|Column         |Type       | Options                      | 
+|               |           |                              |
+|postal_code    |string     |null:false                    |
+|prefectures    |string     |null:false                    |
+|municipalities |string     |null:false                    |
+|address        |string     |null:false                    |
+|building_name  |string     |null:false                    |
+|phone_number   |string     |null:false                    |
+|item_id        |references |null:false, foreign_key: true |
+|user_id        |references |null:false, foreign_key: true |
 
-* Deployment instructions
-
-* ...
+belongs_to :users
+belongs_to :items
