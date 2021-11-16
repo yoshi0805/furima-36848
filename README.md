@@ -7,43 +7,53 @@ usersテーブル
 |encrypted_password |string |null:false              |
 |first_name         |string |null:false              |
 |last_name          |string |null:false              |
-|birth_year         |string |null:false              |
-|birth_month        |string |null:false              |
-|birth_day          |string |null:false              |
+|first_name_kana    |string |null:false              |
+|last_name_kana     |string |null:false              |
+|birth_date         |date   |null:false              |
 
 has_many :items
-has_many :orders
+has_many :trading_records
 
 
 itemsテーブル
 
-|Column           |Type       | Options                      | 
-|                 |           |                              |
-|item_name        |string     |null:false                    |
-|detail           |text       |null:false                    |
-|category         |string     |null:false                    |
-|status           |string     |null:false                    |
-|shipping_burden  |string     |null:false                    |
-|shipment_source  |string     |null:false                    |
-|price            |string     |null:false                    |
-|user_id          |references |null:false, foreign_key: true |
+|Column              |Type       | Options                      | 
+|                    |           |                              |
+|item_name           |string     |null:false                    |
+|detail              |text       |null:false                    |
+|category_id         |integer    |null:false                    |
+|status_id           |integer    |null:false                    |
+|shipping_burden_id  |integer    |null:false                    |
+|prefectures_id      |integer    |null:false                    |
+|price               |integer    |null:false                    |
+|user                |references |null:false, foreign_key: true |
 
 belongs_to :users
-has_one :orders
+has_one :trading_record
 
 
-ordersテーブル
+trading_recordsテーブル
+
+|Column         |Type       | Options                      | 
+|               |           |                              |
+|phone_number   |string     |null:false                    |
+|item           |references |null:false, foreign_key: true |
+|user           |references |null:false, foreign_key: true |
+
+belongs_to :users
+belongs_to :items
+has_one :shipping_address
+
+
+shipping_addressesテーブル
 
 |Column         |Type       | Options                      | 
 |               |           |                              |
 |postal_code    |string     |null:false                    |
-|prefectures    |string     |null:false                    |
+|prefectures_id |integer    |null:false                    |
 |municipalities |string     |null:false                    |
 |address        |string     |null:false                    |
 |building_name  |string     |null:false                    |
-|phone_number   |string     |null:false                    |
-|item_id        |references |null:false, foreign_key: true |
-|user_id        |references |null:false, foreign_key: true |
+|trading_record |references |null:false, foreign_key: true |
 
-belongs_to :users
-belongs_to :items
+belongs_to :trading_records
