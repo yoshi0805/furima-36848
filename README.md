@@ -24,11 +24,12 @@ itemsテーブル
 |category_id         |integer    |null:false                    |
 |status_id           |integer    |null:false                    |
 |shipping_burden_id  |integer    |null:false                    |
-|prefectures_id      |integer    |null:false                    |
+|prefecture_id       |integer    |null:false                    |
+|delivery_day_id    |integer    |null:false                    |
 |price               |integer    |null:false                    |
 |user                |references |null:false, foreign_key: true |
 
-belongs_to :users
+belongs_to :user
 has_one :trading_record
 
 
@@ -36,12 +37,11 @@ trading_recordsテーブル
 
 |Column         |Type       | Options                      | 
 |               |           |                              |
-|phone_number   |string     |null:false                    |
 |item           |references |null:false, foreign_key: true |
 |user           |references |null:false, foreign_key: true |
 
-belongs_to :users
-belongs_to :items
+belongs_to :user
+belongs_to :item
 has_one :shipping_address
 
 
@@ -50,10 +50,11 @@ shipping_addressesテーブル
 |Column         |Type       | Options                      | 
 |               |           |                              |
 |postal_code    |string     |null:false                    |
-|prefectures_id |integer    |null:false                    |
-|municipalities |string     |null:false                    |
+|prefecture_id  |integer    |null:false                    |
+|municipality   |string     |null:false                    |
 |address        |string     |null:false                    |
-|building_name  |string     |null:false                    |
+|building_name  |string     |                              |
+|phone_number   |string     |null:false                    |
 |trading_record |references |null:false, foreign_key: true |
 
-belongs_to :trading_records
+belongs_to :trading_record
