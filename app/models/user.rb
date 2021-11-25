@@ -13,9 +13,8 @@ class User < ApplicationRecord
     validates :first_name
   end
 
-  with_options presence: true, format: {with:/\A[\p{katakana} ー－&&[^ -~｡-ﾟ]]+\z/, message: "全角カタカナのみで入力して下さい"}do
+  with_options presence: true, format: { with: /\A[\p{katakana} ー－&&[^ -~｡-ﾟ]]+\z/, message: '全角カタカナのみで入力して下さい' } do
     validates :last_name_kana
     validates :first_name_kana
   end
-
 end
