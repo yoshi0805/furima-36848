@@ -13,11 +13,11 @@ class Item < ApplicationRecord
   with_options presence: true do
   validates :item_name
   validates :detail
-  validates :category_id
-  validates :status_id
-  validates :shipping_burden_id
-  validates :prefecture_id
-  validates :delivery_day_id
+  validates :category_id, numericality: { other_than: 1, message: 'を選択して下さい' }
+  validates :status_id, numericality: { other_than: 1, message: 'を選択して下さい' }
+  validates :shipping_burden_id, numericality: { other_than: 1, message: 'を選択して下さい' }
+  validates :prefecture_id, numericality: { other_than: 1, message: 'を選択して下さい'  }
+  validates :delivery_day_id, numericality: { other_than: 1, message: 'を選択して下さい'  }
   validates :image
   validates :price,inclusion: { in: 300..9_999_999 }, format: { with: /\A[0-9]+\z/ }
   end
