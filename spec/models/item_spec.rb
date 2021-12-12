@@ -112,13 +112,13 @@ RSpec.describe Item, type: :model do
       it '商品価格が300円未満では出品できない場合' do
         @item.price = 299
         @item.valid?
-        expect(@item.errors.full_messages).to include 'Price is not included in the list'
+        expect(@item.errors.full_messages).to include 'Price must be greater than or equal to 300'
       end
 
       it '商品価格が10000000円以上では出品できない場合' do
         @item.price = 10_000_000
         @item.valid?
-        expect(@item.errors.full_messages).to include 'Price is not included in the list'
+        expect(@item.errors.full_messages).to include 'Price must be less than or equal to 9999999'
       end
 
       it '商品価格は半角数値でなければ出品できない場合' do
