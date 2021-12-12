@@ -13,17 +13,15 @@ class ItemsController < ApplicationController
   end
 
   def new
-    if user_signed_in?
-      @item = Item.new
-    else
-      redirect_to  new_user_session_path
-    end
+    @item = Item.new
   end
 
   def edit
   end
 
   private
+
+  before_action :authenticate_user!, except: [:index]
 
   def item_params
     params.require(:item).permit(:item_name, :detail, :category_id, :status_id, :shipping_burden_id, :prefecture_id,
