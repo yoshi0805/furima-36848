@@ -2,6 +2,7 @@ class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index]
 
   def index
+    @items = Item.all.order(created_at: :desc)
   end
 
   def create
@@ -16,6 +17,10 @@ class ItemsController < ApplicationController
 
   def new
     @item = Item.new
+  end
+
+  def show
+    @items = Item.find(params[:id])
   end
 
   def edit
