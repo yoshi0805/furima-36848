@@ -26,7 +26,7 @@ class ItemsController < ApplicationController
   def edit
     @item = Item.find(params[:id])
     unless @item.user_id == current_user.id
-      redirect_to action: :show
+      redirect_to root_path
     end
   end
 
