@@ -8,7 +8,7 @@ class Item < ApplicationRecord
   belongs_to :delivery_day
   belongs_to :user
   has_one_attached :image
-  has_one :trading_record
+  #has_one :trading_record
 
   with_options presence: true do
     validates :item_name, length: { maximum: 40 }
