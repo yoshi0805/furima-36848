@@ -1,3 +1,4 @@
 class ShippingAddress < ApplicationRecord
-  has_one :trading_record
+  belongs_to :trading_record
+  belongs_to :prefecture
 end
