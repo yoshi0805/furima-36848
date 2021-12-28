@@ -7,11 +7,11 @@
     </h2>
     <div class="item-img-content">
       <%= image_tag @item.image ,class:"item-box-img" %>
-      <%# if @item.trading_record.present? %>
-        <%# <div class="sold-out"> %>
-          <%# <span>Sold Out!!</span> %>
-        <%# </div> %>
-      <%# <% end %> 
+      <% if @item.trading_record.present? %>
+         <div class="sold-out"> 
+           <span>Sold Out!!</span> 
+         </div> 
+       <% end %> 
     </div>
     <div class="item-price-box">
       <span class="item-price">
@@ -21,8 +21,7 @@
         <%= @item.shipping_burden.name %>
       </span>
     </div>
-   <%# <% if user_signed_in? && @item.trading_record == nil %> 
-   <% if user_signed_in? %>
+   <% if user_signed_in? && @item.trading_record == nil %> 
      <% if current_user.id == @item.user_id %>
       <%= link_to "商品の編集", edit_item_path(@item.id), method: :get, class: "item-red-btn" %>
       <p class="or-text">or</p>

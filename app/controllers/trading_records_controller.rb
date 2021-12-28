@@ -7,7 +7,6 @@ class TradingRecordsController < ApplicationController
 
   def create
     @item = Item.find(params[:item_id])
-    binding.pry
     @trading_record_shipping_address = TradingRecordShippingAddress.new(trading_record_params)
     if @trading_record_shipping_address.valid?
       @trading_record_shipping_address.save

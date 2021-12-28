@@ -32,7 +32,7 @@
     <%# /支払額の表示 %>
 
     <%= form_with model: @trading_record_shipping_address, url:item_trading_records_path, id: 'charge-form', class: 'transaction-form-wrap',local: true do |f| %>
-    <%# カード情報の入力 %>
+    <%= render 'shared/error_messages', model: @trading_record_shipping_address %>
     <div class='credit-card-form'>
       <h1 class='info-input-haedline'>
         クレジットカード情報入力

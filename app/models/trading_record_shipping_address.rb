@@ -15,7 +15,7 @@ class TradingRecordShippingAddress
 
   def save
     trading_record = TradingRecord.create(item_id: item_id, user_id: user_id)
-    ShippingAddress.create(postal_code: postal_code, prefecture_id: prefecture_id, municipality: municipality, address: address, building_name: building_name, phone_number: phone_number, trading_record_id: trading_record.id)
+    shipping_address = ShippingAddress.create(postal_code: postal_code, prefecture_id: prefecture_id, municipality: municipality, address: address, building_name: building_name, phone_number: phone_number, trading_record_id: trading_record.id)
   end
 
 end
