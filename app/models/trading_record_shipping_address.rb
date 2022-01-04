@@ -1,6 +1,6 @@
 class TradingRecordShippingAddress 
   include ActiveModel::Model
-  attr_accessor  :postal_code,:prefecture_id,:municipality,:address,:building_name,:phone_number,:item_id,:user_id
+  attr_accessor  :postal_code,:prefecture_id,:municipality,:address,:building_name,:phone_number,:item_id,:user_id,:token
 
   validates :prefecture_id, numericality: {other_than: 1, message:"can't be blank"}
   
