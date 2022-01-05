@@ -12,8 +12,9 @@ class TradingRecordsController < ApplicationController
       Payjp.api_key = "sk_test_7d89faab16bcf71e7152d4ba"
       Payjp::Charge.create(
         amount: @item.price,
-        card: order_params[:token],
-        currency: 'jpy')
+        card: trading_record_params[:token],
+        currency: 'jpy'
+      )
       @trading_record_shipping_address.save
       redirect_to root_path
     else
