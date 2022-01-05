@@ -9,7 +9,7 @@ class TradingRecordsController < ApplicationController
     @item = Item.find(params[:item_id])
     @trading_record_shipping_address = TradingRecordShippingAddress.new(trading_record_params)
     if @trading_record_shipping_address.valid?
-      Payjp.api_key = "sk_test_7d89faab16bcf71e7152d4ba"
+      Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
       Payjp::Charge.create(
         amount: @item.price,
         card: trading_record_params[:token],
