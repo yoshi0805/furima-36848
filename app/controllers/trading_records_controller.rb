@@ -1,12 +1,13 @@
 class TradingRecordsController < ApplicationController
+  before_action :authenticate_user!
+  before_action :set_item
+  before_action :prevent_url, only: [:index]
 
   def index
-    @item = Item.find(params[:item_id])
     @trading_record_shipping_address = TradingRecordShippingAddress.new
   end
 
   def create
-    @item = Item.find(params[:item_id])
     @trading_record_shipping_address = TradingRecordShippingAddress.new(trading_record_params)
     if @trading_record_shipping_address.valid?
       Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
@@ -20,12 +21,21 @@ class TradingRecordsController < ApplicationController
     else
       render :index
     end
-
   end
 
   private
   def trading_record_params
     params.require(:trading_record_shipping_address).permit(:postal_code,:prefecture_id,:municipality,:address,:building_name,:phone_number).merge(user_id: current_user.id, item_id: @item.id, token: params[:token])
+  end
+
+  def set_item
+    @item = Item.find(params[:item_id])
+  end
+
+  def prevent_url
+    if @item.user_id == current_user.id || @item.trading_record != nil
+      redirect_to root_path
+    end
   end
 
 end
