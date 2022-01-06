@@ -13,6 +13,12 @@ RSpec.describe TradingRecordShippingAddress, type: :model do
   end
 
     context '商品購入ができない' do
+      it 'tokenが空では商品購入できない' do
+        @order.token = ''
+        @order.valid?
+        expect(@order.errors.full_messages).to include "Token can't be blank"
+      end
+
       it '郵便番号が空では商品購入できない' do
         @order.postal_code = ''
         @order.valid?
