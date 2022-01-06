@@ -10,7 +10,7 @@ class TradingRecordsController < ApplicationController
   def create
     @trading_record_shipping_address = TradingRecordShippingAddress.new(trading_record_params)
     if @trading_record_shipping_address.valid?
-      Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
+      Payjp.api_key = ENV['PAYJP_SECRET_KEY']
       Payjp::Charge.create(
         amount: @item.price,
         card: trading_record_params[:token],
@@ -24,8 +24,11 @@ class TradingRecordsController < ApplicationController
   end
 
   private
+
   def trading_record_params
-    params.require(:trading_record_shipping_address).permit(:postal_code,:prefecture_id,:municipality,:address,:building_name,:phone_number).merge(user_id: current_user.id, item_id: @item.id, token: params[:token])
+    params.require(:trading_record_shipping_address).permit(:postal_code, :prefecture_id, :municipality, :address, :building_name, :phone_number).merge(
+      user_id: current_user.id, item_id: @item.id, token: params[:token]
+    )
   end
 
   def set_item
@@ -33,9 +36,6 @@ class TradingRecordsController < ApplicationController
   end
 
   def prevent_url
-    if @item.user_id == current_user.id || @item.trading_record != nil
-      redirect_to root_path
-    end
+    redirect_to root_path if @item.user_id == current_user.id || !@item.trading_record.nil?
   end
-
 end
