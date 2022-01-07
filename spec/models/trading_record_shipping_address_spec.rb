@@ -9,7 +9,6 @@ RSpec.describe TradingRecordShippingAddress, type: :model do
 
   describe '商品購入' do
     context '商品購入ができる' do
-      
       it '項目が適切に入力されていれば購入できる' do
         expect(@order).to be_valid
       end
@@ -105,6 +104,5 @@ RSpec.describe TradingRecordShippingAddress, type: :model do
       @order.valid?
       expect(@order.errors.full_messages).to include "Item can't be blank"
     end
-
   end
 end
