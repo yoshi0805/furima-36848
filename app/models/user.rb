@@ -19,5 +19,5 @@ class User < ApplicationRecord
   end
 
   has_many :items
-  # has_many :trading_records
+  has_many :trading_records
 end
