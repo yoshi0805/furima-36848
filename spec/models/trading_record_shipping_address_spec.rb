@@ -2,11 +2,20 @@ require 'rails_helper'
 
 RSpec.describe TradingRecordShippingAddress, type: :model do
   before do
-    @order = FactoryBot.build(:trading_record_shipping_address)
+    user = FactoryBot.build_stubbed(:user)
+    item = FactoryBot.build_stubbed(:item)
+    @order = FactoryBot.build(:trading_record_shipping_address, user_id: user.id, item_id: item.id)
   end
+
   describe '商品購入' do
     context '商品購入ができる' do
-      it '項目が適切に入力されていれば登録できる' do
+      
+      it '項目が適切に入力されていれば購入できる' do
+        expect(@order).to be_valid
+      end
+
+      it '建物名がなくても購入できる' do
+        @order.building_name = ''
         expect(@order).to be_valid
       end
     end
@@ -37,8 +46,8 @@ RSpec.describe TradingRecordShippingAddress, type: :model do
       expect(@order.errors.full_messages).to include 'Postal code is invalid. Include hyphen(-)'
     end
 
-    it '都道府県が空では商品購入できない' do
-      @order.prefecture_id = ''
+    it '都道府県の選択が（初期値）では商品購入できない' do
+      @order.prefecture_id = '1'
       @order.valid?
       expect(@order.errors.full_messages).to include "Prefecture can't be blank"
     end
@@ -84,5 +93,18 @@ RSpec.describe TradingRecordShippingAddress, type: :model do
       @order.valid?
       expect(@order.errors.full_messages).to include 'Phone number is invalid'
     end
+
+    it 'userが紐付いていなければ商品購入できない' do
+      @order.user_id = nil
+      @order.valid?
+      expect(@order.errors.full_messages).to include "User can't be blank"
+    end
+
+    it 'itemが紐付いていなければ商品購入できない' do
+      @order.item_id = nil
+      @order.valid?
+      expect(@order.errors.full_messages).to include "Item can't be blank"
+    end
+
   end
 end
