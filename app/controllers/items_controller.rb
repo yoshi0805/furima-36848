@@ -24,7 +24,11 @@ class ItemsController < ApplicationController
   end
 
   def edit
-    redirect_to root_path unless @item.user_id == current_user.id || @item.trading_record.nil?
+    if @item.trading_record != nil
+      redirect_to root_path 
+    elsif @item.user_id != current_user.id
+      redirect_to root_path
+    end
   end
 
   def update
@@ -46,7 +50,7 @@ class ItemsController < ApplicationController
 
   def item_params
     params.require(:item).permit(:item_name, :detail, :category_id, :status_id, :shipping_burden_id, :prefecture_id,
-                                 :delivery_day_id, :price, :image).merge(user_id: current_user.id)
+                                 :delivery_day_id, :price, :image).merge(user_id: current_user.id, trading_record_id: trading_record.id)
   end
 
   def set_item
