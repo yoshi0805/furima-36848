@@ -30,6 +30,7 @@ RSpec.describe TradingRecordShippingAddress, type: :model do
     it '郵便番号が空では商品購入できない' do
       @order.postal_code = ''
       @order.valid?
+      binding.pry
       expect(@order.errors.full_messages).to include "Postal code can't be blank", 'Postal code is invalid. Include hyphen(-)'
     end
 

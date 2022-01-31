@@ -75,7 +75,8 @@
   </div>
 
   <div class="comment-box">
-    <form>
+  <% if user_signed_in?%>
+    <%= form_with model: @comment, id: "comment-form" do |f| %>
       <textarea class="comment-text"></textarea>
       <p class="comment-warn">
         相手のことを考え丁寧なコメントを心がけましょう。
@@ -87,6 +88,8 @@
         <span>コメントする<span>
       </button>
     </form>
+    <% end %>
+  <% end %>
   </div>
   <div class="links">
     <a href="#" class="change-item-btn">
